@@ -1,6 +1,8 @@
 {
   "version": 2,
+  "buildCommand": "npm run build",
+  "outputDirectory": ".next",
   "env": {
-    "SLACK_WEBHOOK_URL": "https://hooks.slack.com/services/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"
+    "SLACK_WEBHOOK_URL": "https://hooks.slack.com/services/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"
   }
 }
