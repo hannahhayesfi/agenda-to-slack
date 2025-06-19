@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You Page Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+        }
+        .success-icon {
+            font-size: 60px;
+            margin: 20px 0;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="success-icon">✅</div>
+        <h1>Thank You!</h1>
+        <p>Your submission has been received. We appreciate your interest and will be in touch soon.</p>
+        <p>This is a demo of the thank you page that will trigger a Slack notification.</p>
+        <a href="#" class="btn" id="test-notification">Test Slack Notification</a>
+    </div>
+
+    <script>
+        // Function to send notification
+        function sendNotification() {
+            // Get referrer information
+            const referrer = document.referrer || 'Direct visit';
+            
+            // In a real implementation, this would be your deployed server URL
+            const notificationServerUrl = 'http://localhost:3000/notify-visit';
+            
+            fetch(notificationServerUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    referrer: referrer,
+                    page: window.location.href
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Notification sent to Slack! Check your channel.');
+                console.log('Success:', data);
+            })
+            .catch(error => {
+                alert('Error sending notification. Make sure your server is running.');
+                console.error('Error:', error);
+            });
+        }
+
+        // Send notification automatically when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Uncomment the line below to automatically send notification on page load
+            // sendNotification();
+        });
+
+        // Send notification when test button is clicked
+        document.getElementById('test-notification').addEventListener('click', function(e) {
+            e.preventDefault();
+            sendNotification();
+        });
+    </script>
+</body>
+</html>

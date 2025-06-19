@@ -1,0 +1,11 @@
+[build]
+  functions = "serverless/netlify/functions"
+
+[dev]
+  functions = "serverless/netlify/functions"
+  publish = "public"
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200

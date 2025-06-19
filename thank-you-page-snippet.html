@@ -1,0 +1,27 @@
+<!-- Add this snippet to your thank-you page at https://agendaverse.com/thank-you -->
+<!-- This script will send a notification to Slack when someone visits the page -->
+
+<script>
+  // Only execute on thank you page
+  document.addEventListener('DOMContentLoaded', function() {
+    // Get referrer information
+    const referrer = document.referrer || 'Direct visit';
+    
+    // Send notification to our server
+    fetch('https://your-deployed-server-url.com/notify-visit', {  // Replace with your actual deployed URL
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        referrer: referrer,
+        page: window.location.href,
+        timestamp: new Date().toISOString()
+      }),
+    })
+    .catch(error => {
+      // Silent fail - don't affect user experience
+      console.error('Error sending notification:', error);
+    });
+  });
+</script>
