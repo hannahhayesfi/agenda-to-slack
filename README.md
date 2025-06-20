@@ -32,4 +32,17 @@ This application works by:
 
 ## Deployment
 
-See the deployment section for instructions on how to deploy this service.
+### Vercel Deployment (Recommended)
+
+1. Push your code to a GitHub repository
+2. Connect your repository to Vercel
+3. **IMPORTANT**: Add your Slack webhook URL as an environment variable in the Vercel dashboard:
+   - Go to your project settings
+   - Navigate to the "Environment Variables" section
+   - Add a variable named `SLACK_WEBHOOK_URL` with your webhook URL
+   - **NEVER commit webhook URLs to your repository**
+4. Deploy your application
+
+### Other Deployment Options
+
+See the IMPLEMENTATION_GUIDE.md for more deployment options and detailed instructions.

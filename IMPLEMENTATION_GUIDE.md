@@ -15,10 +15,29 @@ This guide provides detailed steps to implement the Slack notification system fo
 8. Copy the webhook URL provided - you'll need this later
 
 ### Step 2: Deploy the Notification Server
+
+#### Option A: Self-hosted Deployment
 1. Clone this repository to your server
 2. Run `npm install` to install dependencies
 3. Create a `.env` file based on `.env.example` and add your Slack webhook URL
 4. Start the server with `npm start` (use PM2 or similar for production)
+
+#### Option B: Vercel Deployment
+1. Fork/clone this repository to your GitHub account
+2. Connect your repository to Vercel
+3. **IMPORTANT**: Add your Slack webhook URL as an environment variable in the Vercel dashboard:
+   - Go to your project settings
+   - Navigate to the "Environment Variables" section
+   - Add a variable named `SLACK_WEBHOOK_URL` with your webhook URL
+   - **NEVER commit webhook URLs directly in code or config files**
+4. Deploy your application
+
+#### Option C: Netlify Deployment
+1. Fork/clone this repository to your GitHub account
+2. Connect your repository to Netlify
+3. In the Netlify dashboard, go to Site settings > Build & deploy > Environment
+4. Add your `SLACK_WEBHOOK_URL` environment variable with your webhook URL
+5. Deploy your application
 
 ### Step 3: Add the Notification Script to Your Thank You Page
 Add this script to your thank you page (update the URL to your server):
@@ -72,8 +91,22 @@ If you have access to the server code that renders the thank you page:
 3. Visit your thank you page
 4. Check your Slack channel for the notification
 
+## Security Considerations
+
+### Protecting Your Webhook URL
+
+**IMPORTANT**: Slack webhook URLs are sensitive credentials that should be treated like passwords.
+
+- **NEVER commit webhook URLs to public repositories** - Slack automatically scans GitHub and will invalidate exposed webhooks
+- **ALWAYS use environment variables** to store webhook URLs
+- If a webhook URL is accidentally exposed, immediately rotate it by:
+  1. Deleting the old webhook in your Slack app settings
+  2. Creating a new webhook
+  3. Updating all your environment variables with the new URL
+
 ## Troubleshooting
 
 - **No notifications appearing**: Check server logs, verify webhook URL is correct
 - **CORS errors**: Ensure your server's CORS settings allow requests from your website
 - **Rate limiting**: Slack has rate limits on incoming webhooks, check if you're hitting them
+- **Webhook invalidated**: If Slack has invalidated your webhook due to exposure, you'll need to create a new webhook and update your environment variables
