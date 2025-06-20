@@ -8,7 +8,7 @@
     const referrer = document.referrer || 'Direct visit';
     
     // Send notification to our proxy endpoint (NOT directly to Slack)
-    fetch('https://agenda-to-slack-3-dsiadlpf8-hannah-8751s-projects.vercel.app/api/proxy-to-slack', {
+    fetch('https://agenda-to-slack-2j2w.vercel.app/api/proxy-to-slack', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
