@@ -3,13 +3,14 @@ const axios = require('axios');
 
 // This function will be deployed as a serverless function on Vercel
 export default async function handler(req, res) {
-  // Set CORS headers to allow requests from agendaverse.com
+  // Always set CORS headers for all responses
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Origin, X-Requested-With, Accept');
   
   // Handle OPTIONS request (preflight)
   if (req.method === 'OPTIONS') {
+    // Return 200 OK for OPTIONS requests with proper CORS headers
     return res.status(200).end();
   }
 
